@@ -1,0 +1,7 @@
+kobe:
+  datasource:
+    host: localhost
+    port: 3306
+    database: kobe
+    username: root
+    password: root040428
