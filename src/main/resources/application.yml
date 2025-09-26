@@ -13,11 +13,25 @@ spring:
     username: ${kobe.datasource.username}
     password: ${kobe.datasource.password}
 
-redis:
-  host: localhost
-  port: 6379
-  password:  # Redis密码（没有则留空）
-  database: 0
+#redis:
+#  host: localhost
+#  port: 6379
+#  password:  # Redis密码（没有则留空）
+#  database: 0
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: com.example.kobe.entity
+  global-config:
+    db-config:
+      id-type: auto  # 主键自增，与表中AUTO_INCREMENT匹配
+      # 关键：修改逻辑删除配置（新表用1表示删除）
+      logic-delete-field: delFlag
+      logic-delete-value: 1        # 1=已删除（与新表一致）
+      logic-not-delete-value: 0    # 0=未删除
+  configuration:
+    map-underscore-to-camel-case: true  # 驼峰映射（表中无下划线字段，可不配但保留稳妥）
+    cache-enabled: false
 
 
 
