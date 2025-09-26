@@ -7,9 +7,9 @@ import com.example.kobe.utils.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +17,9 @@ import java.util.List;
 @RequestMapping("/sysUser")
 @Tag(name="用户管理", description = "系统用户的查询、新增、编辑、删除接口")
 public class SysUserController {
+
+    // 1. 声明日志对象（参数为当前类的Class，便于定位日志来源）
+    private static final Logger log = LoggerFactory.getLogger(SysUserController.class);
 
     @Resource
     private ISysUserService sysUserService;
@@ -40,7 +43,8 @@ public class SysUserController {
     @Operation(summary = "用户详情", description="根据用户ID查询用户详情")
     @GetMapping("/getUserInfo")
     public Result<SysUser> getUserInfo(Long userId) {
-        System.out.println("userId:" + userId);
+
+        log.info("开始查询用户详情，查询条件：userId: {}", userId);
 
         SysUser sysUser = sysUserService.getById(userId);
 
@@ -52,21 +56,21 @@ public class SysUserController {
     }
 
     @Operation(summary = "新增用户", description="新增系统用户")
-    @GetMapping("/addSysUser")
-    public Result<Void> addSysUser(SysUser sysUser) {
+    @PostMapping("/addSysUser")
+    public Result<Void> addSysUser(@RequestBody SysUser sysUser) {
         sysUserService.save(sysUser);
         return Result.success();
     }
 
     @Operation(summary = "修改用户", description="修改系统用户")
-    @GetMapping("/updateSysUser")
-    public Result<Void> updateSysUser(SysUser sysUser) {
+    @PostMapping("/updateSysUser")
+    public Result<Void> updateSysUser(@RequestBody SysUser sysUser) {
         sysUserService.updateById(sysUser);
         return Result.success();
     }
 
     @Operation(summary = "删除用户", description="删除系统用户")
-    @GetMapping("/deleteSysUser")
+    @DeleteMapping("/deleteSysUser")
     public Result<Void> deleteSysUser(Long userId) {
         sysUserService.removeById(userId);
         return Result.success();
