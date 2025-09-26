@@ -85,6 +85,12 @@
 			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>1.2.20</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.github.xiaoymin</groupId>
+			<artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+			<version>4.4.0</version> <!-- 最新稳定版，可到 Maven 仓库查询更新 -->
+		</dependency>
 	</dependencies>
 
 	<build>
