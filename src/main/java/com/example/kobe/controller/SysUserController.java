@@ -1,7 +1,10 @@
 package com.example.kobe.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.kobe.dto.UserDto;
 import com.example.kobe.entity.SysUser;
+import com.example.kobe.exception.BusinessException;
 import com.example.kobe.service.ISysUserService;
 import com.example.kobe.utils.Result;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,7 +52,7 @@ public class SysUserController {
         SysUser sysUser = sysUserService.getById(userId);
 
         if (sysUser == null) {
-            return Result.error("用户不存在");
+            throw new BusinessException("用户不存在userId:" + userId);
         }
 
         return Result.success(sysUser);
@@ -57,7 +60,11 @@ public class SysUserController {
 
     @Operation(summary = "新增用户", description="新增系统用户")
     @PostMapping("/addSysUser")
-    public Result<Void> addSysUser(@RequestBody SysUser sysUser) {
+    public Result<Void> addSysUser(@RequestBody UserDto userDto) {
+        SysUser sysUser = new SysUser();
+        BeanUtil.copyProperties(userDto, sysUser);
+        sysUser.setPassword("123456");
+        sysUser.setStatus(0);
         sysUserService.save(sysUser);
         return Result.success();
     }

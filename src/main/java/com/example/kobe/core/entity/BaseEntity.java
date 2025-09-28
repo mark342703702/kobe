@@ -2,6 +2,7 @@ package com.example.kobe.core.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,6 +11,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -42,6 +44,7 @@ public class BaseEntity implements Serializable {
     @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
 
+    @JsonIgnore
     @Schema(description = "删除标志（0=未删除，1=已删除）", hidden = true)
     @TableLogic
     @TableField("del_flag")
