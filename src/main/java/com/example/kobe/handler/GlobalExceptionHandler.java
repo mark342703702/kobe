@@ -2,6 +2,7 @@ package com.example.kobe.handler;
 
 import com.example.kobe.exception.BusinessException;
 import com.example.kobe.utils.Result;
+import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
@@ -42,7 +43,7 @@ public class GlobalExceptionHandler {
         String errorMsg = e.getConstraintViolations()
                 .stream()
                 .findFirst()
-                .map(violation -> violation.getMessage())
+                .map(ConstraintViolation::getMessage)
                 .orElse("参数校验失败");
         return Result.error(500, errorMsg);
     }
