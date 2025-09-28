@@ -97,6 +97,12 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>cn.dev33</groupId>
+			<artifactId>sa-token-spring-boot3-starter</artifactId>
+			<version>1.38.0</version> <!-- 最新版本可查官方文档 -->
+		</dependency>
+
 	</dependencies>
 
 	<build>
